@@ -2,7 +2,7 @@
 ## By: Sairam Krishnan ([sairambkrishnan@gmail.com](mailto:sairambkrishnan@gmail.com))
 
 ### Overview
-
+The Central-Limit Theorem essentially states that gathering arithmetic means of a random variable through a large number of iterations of an experiment will yield an approximately normal distribution. The purpose of this report is to examine the Central-Limit Theorem for R's random exponential distribution. Specifically, we will compare a random exponential distribution with 1000 exponentials to the distribution of 1000 arithmetic means of random exponential distributions consisting of 40 elements. Note that for this report, lambda, the second parameter used to generate random exponential distributions in R, is 0.2.
 
 ### Code for Simulations
 
@@ -190,6 +190,11 @@ runSimulation <- function(numSimulations = 1000, numExponentials = 40, lambda = 
 
 ```
 
+#### Explanations
+compareAverages and compareVariances generate data frames with 2 columns: Type and Data. <br>
+The latter contains the actual data that will be graphed while the former contains the measure used to classify the data (the categories in the legend). Specifically, the former (Type) will indicate whether the data is from the regular random exponential distribution with 1000 elements, from the distribution of 1000 means of 40-long random exponential distributions, or from the distribution of 1000 variances of 40-long random random exponential distributions.<br>
+runSimulation is the main method or driver, so to speak. It graphs the data in compareAverages and compareVariances in a single window; compareAverages is displayed on the left-hand side, and compareVariances is shown on the right-hand side. In both graphs, a red curve + histogram would be shown concurrently with a blue curve + histogram; the red is for the regular random exponential distribution while the blue is for the 1000 iterations of the simulation.
+
 #### How to Execute
 
 ```
@@ -200,7 +205,8 @@ runSimulation <- function(numSimulations = 1000, numExponentials = 40, lambda = 
 ### Results
 
 #### Graphs
-![Simulation Results]("https://github.com/SaiWebApps/CLT_ExponentialDistribution/SimulationResults.jpeg")
+![Simulation Results](https://github.com/SaiWebApps/CLT_ExponentialDistribution/blob/master/SimulationResults.jpeg)
 
 #### Analysis
-
+As we postulated in the Overview above, even if the regular random exponential distribution is not normally distributed, the distribution of the 1000 averages of random exponential distributions IS normally distributed. A primary distinguishing characteristic of the normal distribution is its bell-shape, which we can clearly see in the left-hand graph for the blue data (1000-averages-of-40-Random-Exponentials). We can see that the same is true for the right-hand graph, which is comparing variances instead.<br>
+For random exponential distributions, theoretically speaking, the mean and standard deviation should both be 1/lambda, which is 5 in this case given that lambda = 0.2; consequently, the theoretical variance should be 25. While experimentation in R shows that the regular random exponential distribution certainly conforms to this expectation, the main difference between the regular random exponential distribution (the red curve) and the distribution of 1000 means (the blue curve) lies in the fact that the central point on the blue curve (by virtue of the fact that it's approximately normally distributed) almost exactly lies on the theoretical values (5 and 25 respectively). That is not the case for the red curves, both of which tend to skew left.
